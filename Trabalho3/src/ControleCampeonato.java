@@ -23,8 +23,12 @@ public class ControleCampeonato {
             arquivolido.close();
             Collections.shuffle(participantes); //Randomiza os nomes dos participantes
             tree.criarCampeonato(participantes); //Manda a lista para o ControleCampeonato
-            System.out.println(tree.positionCentral());
-
+            //System.out.println(tree.positionsPos());
+            //System.out.println(tree.positionsPre());
+            //System.out.println(tree.positionsWidth());
+            //System.out.println(tree.altura());
+            System.out.println(tree.countExternalNodes());
+            System.out.println(tree.countInternalNodes());
         }
         catch (IOException e) {
             System.err.format("Erro de E/S: %s%n", e);

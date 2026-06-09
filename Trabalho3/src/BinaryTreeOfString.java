@@ -43,13 +43,14 @@ public class BinaryTreeOfString {
 
             Node jogador1 = lista.poll();
             Node jogador2 = lista.poll();
+
             System.out.println("Quem venceu? digite 1 para " + jogador1.element + " e 2 para " + jogador2.element );
             //Metodo manual para a apresentação
             //int escolha = input.nextInt();
             String nomeVencedor;
             //Metodo automatico para testes (feito com auxilio de IA)
             int escolha = rand.nextInt(2) + 1;
-            System.out.println("Escolha automatica da partica: " + escolha);
+            System.out.println("Escolha automatica da partica: " + escolha + "\n");
 
             if (escolha == 1) {
                 nomeVencedor = jogador1.element;
@@ -67,7 +68,7 @@ public class BinaryTreeOfString {
         }
         this.root = lista.poll();
 
-        System.out.println("O vencedor é: " + this.root.element);
+        System.out.println("\nO vencedor é: " + this.root.element + "\n");
 
     }
 
@@ -247,6 +248,35 @@ public class BinaryTreeOfString {
         return 1 + countNodes(n.left) + countNodes(n.right);
     }
 
+    public int countExternalNodes(){
+        return countExternalNodesAux(root);
+    }
+
+    public int countExternalNodesAux(Node n) {
+        if(n == null){
+            return 0;
+        }
+        if(n.left == null && n.right == null){
+            return 1;
+        }
+        return countExternalNodesAux(n.left) + countExternalNodesAux(n.right);
+    }
+
+    public int countInternalNodes(){
+        return countInternalNodesAux(root);
+    }
+
+    public int countInternalNodesAux(Node n) {
+        if(n == null){
+            return 0;
+        }
+
+        if(n.left == null && n.right == null){
+            return 0;
+        }
+        return 1 + countInternalNodesAux(n.left) + countInternalNodesAux(n.right);
+    }
+
 // ---------------------------------------------------------------------
 
     /**
@@ -296,4 +326,44 @@ public class BinaryTreeOfString {
             positionCentralAux(n.right, lista);
         }
     }
+
+    public LinkedListOfParticipantes positionsWidth() {
+        LinkedListOfParticipantes lista = new LinkedListOfParticipantes();
+        if (root == null) {
+            return lista;
+        }
+        Queue<Node> fila = new LinkedList<>();
+        fila.add(root);
+        while (!fila.isEmpty()) {
+            Node aux = fila.poll();
+            lista.add(aux.element);
+            if (aux.left != null) {
+                fila.add(aux.left);
+            }
+            if (aux.right != null) {
+                fila.add(aux.right);
+            }
+        }
+
+        return lista;
+    }
+
+    public int altura(){
+        return alturaAux(root);
+    }
+
+    private int alturaAux(Node n) {
+        if(n == null){
+            return -1;
+        }
+        int alturaDireita = alturaAux(n.right);
+        int alturaEsquerda = alturaAux(n.left);
+
+        if(alturaDireita < alturaEsquerda){
+            return alturaDireita + 1;
+        }else {
+            return alturaEsquerda + 1;
+        }
+    }
+
 }
