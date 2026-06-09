@@ -2,7 +2,7 @@
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        LerParticipantes ler = new LerParticipantes();
-        ler.lerParticipantes();
+        ControleCampeonato controle = new ControleCampeonato();
+        controle.comecarCampeonato();
     }
 }
