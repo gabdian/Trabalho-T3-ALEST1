@@ -32,7 +32,7 @@ public class MenuApp {
         indice.put("App", raiz);
     }
 
-    // Insere um novo item como filho de um item existente.
+    // Insere um novo ‘item’ como filho de um item existente.
     public void inserirItem(String nomePai, String nomeFilho) {
         Nodo pai = buscar(nomePai);
 
@@ -46,7 +46,7 @@ public class MenuApp {
         indice.put(nomeFilho, filho);
     }
 
-    // Move um item e toda sua subárvore para outro pai.
+    // Move um ‘item’ e toda sua subárvore para outro pai.
     public void moverSubarvore(String nomeItem, String nomeNovoPai) {
         Nodo item = buscar(nomeItem);
         Nodo novoPai = buscar(nomeNovoPai);
@@ -66,7 +66,7 @@ public class MenuApp {
         novoPai.filhos.add(item);
     }
 
-    // Remove um item e todos os seus descendentes.
+    // Remove um ‘item’ e todos os seus descendentes.
     public void removerSubarvore(String nomeItem) {
         Nodo item = buscar(nomeItem);
 
