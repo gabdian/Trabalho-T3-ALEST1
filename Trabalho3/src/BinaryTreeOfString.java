@@ -44,13 +44,13 @@ public class BinaryTreeOfString {
             Node jogador1 = lista.poll();
             Node jogador2 = lista.poll();
 
-            System.out.println("Quem venceu? digite 1 para " + jogador1.element + " e 2 para " + jogador2.element );
+            System.out.println("Quem venceu? digite 1 para " + jogador1.element + " e 2 para " + jogador2.element);
             //Metodo manual para a apresentação
             //int escolha = input.nextInt();
             String nomeVencedor;
             //Metodo automatico para testes (feito com auxilio de IA)
             int escolha = rand.nextInt(2) + 1;
-            System.out.println("Escolha automatica da partica: " + escolha + "\n");
+            System.out.println("Escolha da partida: " + escolha + "\n");
 
             if (escolha == 1) {
                 nomeVencedor = jogador1.element;
@@ -129,6 +129,73 @@ public class BinaryTreeOfString {
             aux = searchNodeRef(element, target.right);
 
         return aux;
+    }
+
+    private Node searchLeafRef(String element, Node target) {
+        if(target == null)
+            return null;
+        if (element.equals(target.element) && target.left == null && target.right == null){
+            return target;
+        }
+
+        Node aux = searchLeafRef(element, target.left);
+        if (aux == null){
+             aux = searchLeafRef(element, target.right);
+        }
+        return aux;
+    }
+
+    public String lca(String jog1, String jog2){
+        Node inicioJog1 = searchNodeRef(jog1, root);
+        Node inicioJog2 = searchNodeRef(jog2, root);
+
+        if(inicioJog1 == null || inicioJog2 ==null){
+            return null;
+        }
+        ArrayList<Node> caminhoJog1 = new ArrayList<>();
+        Node subindo = inicioJog1;
+
+        while(subindo != null){
+            caminhoJog1.add(subindo);
+            subindo = subindo.father;
+        }
+        subindo = inicioJog2;
+        while(subindo != null){
+            if(caminhoJog1.contains(subindo)){
+                return subindo.element;
+            }
+            subindo = subindo.father;
+        }
+        return null;
+    }
+
+    public void mostrarCaminho(String jogador){
+        Node atual = searchLeafRef(jogador, root);
+
+        if (atual == null) {
+            System.out.println("Jogador nào encontrado");
+            return;
+        }
+
+        System.out.println("\nCaminho do Jogador: " + jogador);
+        Node partida = atual.father;
+        int rodada = 1;
+
+        while(partida != null){
+            System.out.println("Rodada " + rodada + ": ");
+            if(partida.element.equals(jogador)){
+                System.out.println("Venceu!");
+            } else{
+                System.out.println("Eliminado.\nVencedor da partida: " + partida.element);
+                return;
+            }
+            atual = partida;
+            partida = atual.father;
+            rodada++;
+        }
+        if(root.element.equals(jogador)){
+            System.out.println("CAMPEÃO!");
+        }
     }
 
     /**
@@ -365,5 +432,7 @@ public class BinaryTreeOfString {
             return alturaEsquerda + 1;
         }
     }
+
+
 
 }

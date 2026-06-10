@@ -11,7 +11,6 @@ public class ControleCampeonato {
 
 
     public void comecarCampeonato(){
-        System.out.println("O Java está procurando o arquivo nesta pasta: " + new java.io.File(".").getAbsolutePath());
         try{
             //FileReader f = new FileReader("PARTICIPANTES.TXT");
             FileReader f = new FileReader("Trabalho3/PARTICIPANTES.TXT");
@@ -23,12 +22,27 @@ public class ControleCampeonato {
             arquivolido.close();
             Collections.shuffle(participantes); //Randomiza os nomes dos participantes
             tree.criarCampeonato(participantes); //Manda a lista para o ControleCampeonato
-            //System.out.println(tree.positionsPos());
-            //System.out.println(tree.positionsPre());
-            //System.out.println(tree.positionsWidth());
-            //System.out.println(tree.altura());
-            System.out.println(tree.countExternalNodes());
-            System.out.println(tree.countInternalNodes());
+//            System.out.println("Caminho pos: \n" + tree.positionsPos());
+//            System.out.println("Caminho pre \n" + tree.positionsPre());
+//            System.out.println("Caminho Largura \n" + tree.positionsWidth());
+//            System.out.println("altura \n" + tree.altura());
+//            System.out.println("Folhas \n" + tree.countExternalNodes());
+//            System.out.println("Galhos \n" + tree.countInternalNodes());
+
+
+            //Teste do LCA na primeira partida
+            String jogA = participantes.get(0);
+            String jogB = participantes.get(1);
+            System.out.println("1. Onde " + jogA + " e " + jogB + " se encontram?");
+            System.out.println("   Resposta do sistema: Na partida vencida por -> " + tree.lca(jogA, jogB));
+
+            //Teste do LCA na Ultima partida
+            String extremoEsquerda = participantes.get(0);
+            String extremoDireita = participantes.get(31);
+            System.out.println("\n2. Onde " + extremoEsquerda + " e " + extremoDireita + " se encontram?");
+            System.out.println("   Resposta do sistema: Na partida vencida por -> " + tree.lca(extremoEsquerda, extremoDireita));
+
+            tree.mostrarCaminho(participantes.get(0));
         }
         catch (IOException e) {
             System.err.format("Erro de E/S: %s%n", e);
